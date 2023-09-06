@@ -32,8 +32,5 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
-  //   pages: {
-  //     signIn: "https://accounts.spotify.com/tr",
-  //   },
 };
 export default NextAuth(authOptions);
