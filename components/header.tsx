@@ -1,13 +1,13 @@
-import Link from "next/link"
-import { signIn, signOut, useSession } from "next-auth/react"
-import styles from "./header.module.css"
+import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
+import styles from "./header.module.css";
 
 // The approach used in this component shows how to build a sign in and sign out
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
-  const { data: session, status } = useSession()
-  const loading = status === "loading"
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   return (
     <header>
@@ -18,8 +18,7 @@ export default function Header() {
         <p
           className={`nojs-show ${
             !session && loading ? styles.loading : styles.loaded
-          }`}
-        >
+          }`}>
           {!session && (
             <>
               <span className={styles.notSignedInText}>
@@ -29,10 +28,9 @@ export default function Header() {
                 href={`/api/auth/signin`}
                 className={styles.buttonPrimary}
                 onClick={(e) => {
-                  e.preventDefault()
-                  signIn()
-                }}
-              >
+                  e.preventDefault();
+                  signIn("spotify");
+                }}>
                 Sign in
               </a>
             </>
@@ -54,10 +52,9 @@ export default function Header() {
                 href={`/api/auth/signout`}
                 className={styles.button}
                 onClick={(e) => {
-                  e.preventDefault()
-                  signOut()
-                }}
-              >
+                  e.preventDefault();
+                  signOut();
+                }}>
                 Sign out
               </a>
             </>
@@ -90,5 +87,5 @@ export default function Header() {
         </ul>
       </nav>
     </header>
-  )
+  );
 }

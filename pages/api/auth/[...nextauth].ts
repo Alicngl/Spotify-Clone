@@ -18,15 +18,22 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile }: any) {
+      console.log(account, user, "signIn");
+
       return true;
     },
 
     async session({ session, token }) {
+      console.log(session, "SESSION");
+
       return session;
     },
     async jwt({ token, account }) {
       return token;
     },
   },
+  //   pages: {
+  //     signIn: "https://accounts.spotify.com/tr",
+  //   },
 };
 export default NextAuth(authOptions);
