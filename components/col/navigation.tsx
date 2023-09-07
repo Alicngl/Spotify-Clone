@@ -1,6 +1,10 @@
 // @flow
-import * as React from "react";
+import { Stack } from "@chakra-ui/react";
 type Props = {};
 export function Navigation(props: Props) {
-  return <div>Navigation</div>;
+  return (
+    <Stack h={"100vh"}>
+      <div>Navigation</div>
+    </Stack>
+  );
 }

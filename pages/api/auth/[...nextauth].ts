@@ -18,18 +18,30 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async signIn({ user, account, profile }: any) {
-      console.log(account, user, "signIn");
-
       return true;
     },
-
-    async session({ session, token }) {
-      console.log(session, "SESSION");
-
-      return session;
-    },
-    async jwt({ token, account }) {
+    async jwt({ token, account, user }) {
+      if (account && user) {
+        return {
+          accessToken: account.access_token,
+          //@ts-ignore
+          accessTokenExpires: account.expires_at * 1000,
+          refreshToken: account.refresh_token,
+          user,
+        };
+      }
+      // Access token has expired, try to update it
       return token;
+    },
+    async session({ session, token }) {
+      //@ts-ignore
+      session.user = token.user;
+      //@ts-ignore
+      session.accessToken = token.accessToken;
+      //@ts-ignore
+      session.error = token.error;
+      console.log(session, "ssss");
+      return session;
     },
   },
 };
